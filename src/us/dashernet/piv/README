@@ -1,0 +1,2 @@
+NB: this quite is super sloppy experimental code around connecting a PIV card to
+various things (mysql, webserver, etc) in Java.

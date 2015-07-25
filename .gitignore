@@ -1,2 +1,2 @@
-clientauth.jar
+*.jar
 src/**/*.class

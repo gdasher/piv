@@ -1,0 +1,2 @@
+Main-Class: us.dashernet.piv.MysqlAuth
+Class-Path: /usr/share/java/mysql.jar

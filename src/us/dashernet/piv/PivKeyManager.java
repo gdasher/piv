@@ -15,6 +15,7 @@ class PivKeyManager implements X509KeyManager {
 
   public String chooseClientAlias(String[] keyType, Principal[] issuers, Socket socket) {
     return "Certificate for PIV Authentication";
+    //return "Certificate for Digital Signature";
   }
 
   public String chooseServerAlias(String keyType, Principal[] issuers, Socket socket) {

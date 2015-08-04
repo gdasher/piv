@@ -11,26 +11,17 @@ class SslClientAuth {
     public static void main(String[] args) {
         // Do global inititing
         Security.addProvider(new PivCertChoosingProvider());
-        Security.addProvider(new SunPKCS11("/etc/java-7-openjdk/security/piv.cfg"));
+        InputStream pivConfig = MysqlAuth.class.getClassLoader().getResourceAsStream("us/dashernet/piv/piv.cfg");
+        Security.insertProviderAt(new SunPKCS11(pivConfig), 6);
         Security.setProperty("ssl.KeyManagerFactory.algorithm", "pivcert");
+        Security.setProperty("ssl.SocketFactory.provider", "us.dashernet.piv.PivSSLSocketFactory");
         if (args.length != 1) {
             System.out.println("Usage: SslClientAuth <url>");
         }
         else try{
 
-            KeyStore ks = KeyStore.getInstance("PKCS11", "SunPKCS11-PIVProxy");
-            char[] pin = System.console().readPassword("Enter Pin: ");
-            ks.load(null, pin);
-
             URL url = new URL(args[0]);
             HttpsURLConnection conn = (HttpsURLConnection)url.openConnection();
-            SSLContext context = SSLContext.getInstance("TLSv1.2");
-            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(
-                KeyManagerFactory.getDefaultAlgorithm());
-            keyManagerFactory.init(ks, pin);
-            context.init(keyManagerFactory.getKeyManagers(), null, new SecureRandom());
-            conn.setSSLSocketFactory(context.getSocketFactory());
-
             printContent(conn);
         } catch (Exception e) {
             e.printStackTrace(System.err);

@@ -11,7 +11,7 @@ class SslClientAuth {
     public static void main(String[] args) {
         // Do global inititing
         Security.addProvider(new PivCertChoosingProvider());
-        InputStream pivConfig = MysqlAuth.class.getClassLoader().getResourceAsStream("us/dashernet/piv/piv.cfg");
+        InputStream pivConfig = SslClientAuth.class.getClassLoader().getResourceAsStream("us/dashernet/piv/piv.cfg");
         Security.insertProviderAt(new SunPKCS11(pivConfig), 6);
         Security.setProperty("ssl.KeyManagerFactory.algorithm", "pivcert");
         Security.setProperty("ssl.SocketFactory.provider", "us.dashernet.piv.PivSSLSocketFactory");

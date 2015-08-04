@@ -1,2 +1,8 @@
-NB: this quite is super sloppy experimental code around connecting a PIV card to
-various things (mysql, webserver, etc) in Java.
+This code is super experimental and very sloppy.  The only goal here was to
+put together a quick proof of concept that it was possible to do PIV auth
+to mysql and to a webserver by overriding things as much as possible
+at the default java level.
+
+I don't believe this is the way things *should* be done, but in some cases its
+neccessary as the relevant libraries one would like to use to not expose
+the internals of the SSL handshake in a way ammenable to configuration.
